@@ -7,3 +7,15 @@ services:
       MONGO_INITDB_DATABASE: reservations
     ports:
       - '27017:27017'
+  booking:
+    build:
+      context: .
+      dockerfile: ./apps/bookings/Dockerfile
+      target: development
+    command: pnpm run start:dev bookings
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - mongodb
